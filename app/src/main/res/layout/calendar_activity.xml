@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="80">
+
+            <RelativeLayout
+                android:id="@+id/previous"
+                style="@style/calendar_toolbar_next_previous_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView style="@style/calendar_toolbar_next_previous" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvEngMonth"
+                style="@style/calendar_toolbar_text"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/color_white" />
+
+            <TextView
+                android:id="@+id/tvEngYear"
+                style="@style/calendar_toolbar_text"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dip"
+                android:text="2018"
+                android:textColor="@color/color_white_50" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linHebrewMonthYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="110"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvHebrewMonthC"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:text="Tishrei"
+                android:textColor="@color/color_white"
+                android:textSize="21dp" />
+
+            <TextView
+                android:id="@+id/tvHebrewYear"
+                style="@style/calendar_toolbar_text"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dip"
+                android:gravity="right"
+                android:text="5779"
+                android:textColor="@color/color_white_50" />
+
+            <RelativeLayout
+                android:id="@+id/next"
+                style="@style/calendar_toolbar_next_previous_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/calendar_toolbar_next_previous"
+                    android:src="@drawable/arrow_right" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_white_50" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            style="@style/calendar_day_name"
+            android:text="S" />
+
+        <TextView
+            style="@style/calendar_day_name"
+            android:text="M" />
+
+        <TextView
+            style="@style/calendar_day_name"
+            android:text="T" />
+
+        <TextView
+            style="@style/calendar_day_name"
+            android:text="W" />
+
+        <TextView
+            style="@style/calendar_day_name"
+            android:text="T" />
+
+        <TextView
+            style="@style/calendar_day_name"
+            android:text="F" />
+
+        <TextView
+            style="@style/calendar_day_name"
+            android:text="S" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
+
+        <LinearLayout
+            android:id="@+id/linBottomStrip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerViewCalendar"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/margin_35">
+
+            <TextView
+                android:id="@+id/tvGoToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/go_to_today"
+                android:textColor="@color/color_white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/linBottomStrip"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_calendar_event_devider" />
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/color_white">
+
+        <TextView
+            android:id="@+id/tvEventNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="No Yartzeits for this date."
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEvent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/adarIAdarIISameDayEventsLink"/>
+
+        <TextView
+            android:id="@+id/adarIAdarIISameDayEventsLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/recyclerViewEvent"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewEvent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewEvent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:padding="@dimen/margin_12"
+            android:text="SEE SAME DAY EVENTS-ADAR I / ADAR II"
+            android:textColor="@color/dark_blue"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="end"
+            android:orientation="vertical"
+            android:weightSum="100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+            <LinearLayout
+                android:id="@+id/shareOptionView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_8"
+                android:background="@drawable/share_option_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/margin_8"
+                android:paddingBottom="@dimen/margin_8"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/addNewEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:text="Add New Private Event"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:layout_marginBottom="@dimen/margin_4"
+                    android:background="@color/color_white" />
+
+                <TextView
+                    android:id="@+id/notificationSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:text="Notification Settings"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/addManuallyBtn"
+                android:layout_width="70dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="100"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_add" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvSearchNames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="#7B2D81"
+        android:gravity="center"
+        android:padding="8dp"
+        android:src="@drawable/ic_contact_to_sponser"
+        android:text="@string/search_names"
+        android:textAllCaps="true"
+        android:textColor="@color/color_white"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="#FF4B72"
+            android:gravity="center"
+            android:onClick="sponsorMail"
+            android:padding="8dp"
+            android:src="@drawable/ic_contact_to_sponser"
+            android:text="@string/sponsor"
+            android:textAllCaps="true"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="#7567EE"
+            android:gravity="center"
+            android:onClick="suggestMail"
+            android:padding="8dp"
+            android:src="@drawable/ic_contact_to_sponser"
+            android:text="@string/suggest"
+            android:textAllCaps="true"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

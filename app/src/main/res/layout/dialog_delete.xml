@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_8">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="28dp"
+        app:cardBackgroundColor="@color/color_white"
+        app:cardCornerRadius="@dimen/margin_8"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_8">
+
+            <TextView
+                android:id="@+id/dialogTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="@dimen/margin_16"
+                android:text="   Deleted   "
+                android:textColor="@color/color_black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dialogMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="Yartzeit has been deleted."
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/dialogOk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/button_close"
+                android:elevation="@dimen/margin_2"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Close"
+                android:textColor="@color/color_white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/new_style"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/red_circle"
+        android:src="@drawable/ic_candle" />
+</RelativeLayout>

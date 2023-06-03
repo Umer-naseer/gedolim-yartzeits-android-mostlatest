@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SponsorActivity">
+
+    <TextView
+        android:id="@+id/sponsorHeadingTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin_16"
+        android:text="@string/sponsor_heading_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/sponsorDetailsTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sponsor_details"
+        android:layout_marginTop="16dp"
+        android:textSize="@dimen/textsize_14_sp"
+        android:layout_marginStart="@dimen/common_12_dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sponsorHeadingTxt"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameOfSponsor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="4dp"
+        android:theme="@style/TextLabel2"
+        android:visibility="visible"
+        android:hint="Your name *"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sponsorDetailsTxt"
+        app:layout_constraintBottom_toTopOf="@+id/emailOfSponsor"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameOfSponsorEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+
+             />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailOfSponsor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_marginTop="12dp"
+        android:theme="@style/TextLabel2"
+        android:visibility="visible"
+        android:hint="Email *"
+        android:textColor="@color/colorAccent"
+        android:paddingStart="8dp"
+        android:paddingEnd="4dp"
+        app:layout_constraintStart_toStartOf="@+id/nameOfSponsor"
+        app:layout_constraintEnd_toEndOf="@+id/nameOfSponsor"
+        app:layout_constraintTop_toBottomOf="@+id/nameOfSponsor"
+        app:layout_constraintBottom_toTopOf="@+id/gedolOfSponsor"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailOfSponsorEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textSize="14sp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/gedolOfSponsor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_marginTop="12dp"
+        android:theme="@style/TextLabel2"
+        android:visibility="visible"
+        android:hint="Gedol you wish to sponsor *"
+        android:textColor="@color/colorAccent"
+        android:paddingStart="8dp"
+        android:paddingEnd="4dp"
+        app:layout_constraintStart_toStartOf="@+id/nameOfSponsor"
+        app:layout_constraintEnd_toEndOf="@+id/nameOfSponsor"
+        app:layout_constraintTop_toBottomOf="@+id/emailOfSponsor"
+        app:layout_constraintBottom_toTopOf="@+id/sponsorPage"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/gedolOfSponsorEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sponsorPage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:maxHeight="100dp"
+        android:theme="@style/TextLabel2"
+        android:visibility="visible"
+        android:hint="Text you wish to add to your sponsor page *"
+        android:textColor="@color/colorAccent"
+        android:paddingStart="8dp"
+        android:paddingEnd="4dp"
+        app:layout_constraintStart_toStartOf="@+id/nameOfSponsor"
+        app:layout_constraintEnd_toEndOf="@+id/nameOfSponsor"
+        app:layout_constraintTop_toBottomOf="@+id/gedolOfSponsor"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sponsorPageEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:textSize="14sp"
+            android:maxLines="10"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/addBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/button_blue"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingTop="10dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="10dp"
+        android:text="Purchase"
+        android:onClick="purchase"
+        android:textColor="@color/color_white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sponsorPage" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

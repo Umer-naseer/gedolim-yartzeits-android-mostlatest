@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "437758088294",
+    "project_id": "gedolim-yartzeits",
+    "storage_bucket": "gedolim-yartzeits.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437758088294:android:16f7f6cdd398c4ef90c9a7",
+        "android_client_info": {
+          "package_name": "com.saqibdb.YahrtzeitsOfGedolim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437758088294-okggm6inva19k1u7it93c3crsorn8egh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.saqibdb.YahrtzeitsOfGedolim",
+            "certificate_hash": "62f23b9d6506c5f7f885bb9fd15702a810baa902"
+          }
+        },
+        {
+          "client_id": "437758088294-voh2m2rv5ueeh0unlqp0g7nunaj9fnji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkN5j7NHX4B2MdNINz0ExteZdLglm2NsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437758088294-voh2m2rv5ueeh0unlqp0g7nunaj9fnji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

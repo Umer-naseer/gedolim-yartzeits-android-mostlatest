@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_60_dp"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/common_5_dp"
+    android:paddingLeft="@dimen/common_10_dp"
+    android:paddingTop="@dimen/common_5_dp">
+
+    <LinearLayout
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHebrewDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:background="@drawable/event_top_pink_back"
+            android:gravity="center"
+            android:text="יא"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/tvEngDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:background="@drawable/event_bottom_blue_back"
+            android:gravity="center"
+            android:text="19"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="35dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:id="@+id/privatEvents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/margin_4"
+            android:visibility="gone"
+            android:padding="@dimen/margin_8"
+            android:src="@drawable/ic_private_events_icon" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/common_10_dp"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="TuppleApps"
+            android:textColor="#060606"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/txtDiscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/common_10_dp"
+            android:layout_marginLeft="@dimen/common_10_dp"
+            android:layout_marginRight="@dimen/common_10_dp"
+            android:layout_marginStart="@dimen/common_10_dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="05:30pm"
+            android:textColor="#969696"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

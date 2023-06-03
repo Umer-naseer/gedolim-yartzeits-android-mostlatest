@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/color_purple"
+        android:elevation="3dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/common_10_dp"
+            android:paddingRight="@dimen/common_10_dp">
+
+            <TextView
+                android:id="@+id/tvEngMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="-"
+                android:textColor="#fff"
+                android:textSize="25sp" />
+            <!--Jun-->
+
+            <TextView
+                android:id="@+id/tvEngDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dip"
+                android:text="-"
+                android:textColor="#bfbfbf"
+                android:textSize="25sp" />
+            <!--2018-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvHebrewMonth2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="-"
+                android:textColor="#fff"
+                android:textSize="25sp" />
+            <!--Tishrei-->
+
+            <TextView
+                android:id="@+id/tvHebrewDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dip"
+                android:text="-"
+                android:textColor="#bfbfbf"
+                android:textSize="25sp" />
+            <!--5779-->
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-150dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/giphy" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="#3e4e4e4e" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layoutButtons"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/descLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.warkiz.tickseekbar.TickSeekBar
+                    android:id="@+id/mSeekbarFontSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    app:tsb_max="25"
+                    app:tsb_min="12"
+                    app:tsb_progress="17"
+                    app:tsb_show_thumb_text="above"
+                    app:tsb_show_tick_marks_type="oval"
+                    app:tsb_show_tick_texts="below"
+                    app:tsb_thumb_color="@color/colorPrimary"
+                    app:tsb_thumb_size="25dp"
+                    app:tsb_thumb_text_color="@color/color_white"
+                    app:tsb_tick_marks_color="@android:color/transparent"
+                    app:tsb_tick_texts_array="@array/progerss"
+                    app:tsb_tick_texts_color="@color/color_9b9b9b"
+                    app:tsb_ticks_count="2"
+                    app:tsb_track_background_color="@color/head_number_color"
+                    app:tsb_track_background_size="4dp"
+                    app:tsb_track_progress_color="@color/color_white"
+                    app:tsb_track_progress_size="4dp"
+                    app:tsb_track_rounded_corners="true"
+                    app:tsb_user_seekable="true" />
+
+                <com.saqibdb.YahrtzeitsOfGedolim.AppTextView
+                    android:id="@+id/tvEventDiscription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_8_dp"
+                    android:fontFamily="serif"
+                    android:letterSpacing="0.04"
+                    android:lineSpacingExtra="3dp"
+                    android:paddingLeft="@dimen/common_10_dp"
+                    android:paddingTop="@dimen/margin_16"
+                    android:paddingRight="@dimen/common_10_dp"
+                    android:paddingBottom="@dimen/common_10_dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="17sp"
+                    android:typeface="serif" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="@dimen/common_50_dp"
+                android:layout_height="@dimen/common_50_dp"
+                android:layout_marginTop="@dimen/common_16_dp"
+                android:layout_marginBottom="@dimen/common_16_dp"
+                android:background="@drawable/button_pink"
+                android:padding="8dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/color_white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivEdit"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivEdit"
+                android:layout_width="@dimen/common_50_dp"
+                android:layout_height="@dimen/common_50_dp"
+                android:layout_marginTop="@dimen/common_16_dp"
+                android:layout_marginBottom="@dimen/common_16_dp"
+                android:layout_toEndOf="@+id/ivDelete"
+                android:background="@drawable/blue_circle"
+                android:padding="8dp"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/color_white"
+                app:layout_constraintStart_toEndOf="@+id/ivDelete"
+                app:layout_constraintTop_toTopOf="@+id/ivDelete"
+                app:layout_constraintBottom_toBottomOf="@+id/ivDelete"
+                app:layout_constraintEnd_toStartOf="@+id/ivClose"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivClose"
+                android:layout_width="@dimen/common_50_dp"
+                android:layout_height="@dimen/common_50_dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_close"
+                app:layout_constraintStart_toEndOf="@+id/ivEdit"
+                app:layout_constraintEnd_toEndOf="@id/ivShare"
+                app:layout_constraintTop_toTopOf="@+id/ivDelete"
+                app:layout_constraintBottom_toBottomOf="@+id/ivDelete"/>
+
+            <View
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@color/color_white"
+                app:layout_constraintBottom_toBottomOf="@id/ivShare"
+                app:layout_constraintEnd_toEndOf="@id/ivShare"
+                app:layout_constraintStart_toStartOf="@id/ivShare"
+                app:layout_constraintTop_toTopOf="@id/ivShare" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivShare"
+                android:layout_width="@dimen/common_50_dp"
+                android:layout_height="@dimen/common_50_dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_share"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivDelete"
+                app:layout_constraintBottom_toBottomOf="@+id/ivDelete"
+                app:layout_constraintStart_toEndOf="@+id/ivClose"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

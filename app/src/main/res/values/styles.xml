@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- declare the theme name that's actually applied in the manifest file -->
+    <style name="AppTheme" parent="BaseAppTheme" />
+
+    <style name="calendar_toolbar_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:layout_centerHorizontal">true</item>-->
+        <item name="android:text">Jun</item>
+        <item name="android:textSize">21dp</item>
+    </style>
+
+    <style name="calendar_toolbar_next_previous">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:padding">@dimen/margin_16</item>
+        <item name="android:src">@drawable/arrow_left</item>
+        <item name="android:tint">#fff</item>
+    </style>
+
+    <style name="calendar_toolbar_next_previous_parent">
+        <item name="android:layout_width">@dimen/margin_40</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+    </style>
+
+    <style name="calendar_day_name">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">S</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <dimen name="textsize_12">12sp</dimen>
+    <dimen name="textsize_10">10sp</dimen>
+    <dimen name="margin_18">18sp</dimen>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/color_white</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/color_white</item>
+        <item name="colorControlNormal">@color/color_white</item>
+        <item name="colorControlActivated">@color/dark_blue</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextLabel2" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="new_style" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/red</item>
+    </style>
+</resources>

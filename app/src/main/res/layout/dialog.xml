@@ -1,0 +1,66 @@
+<RelativeLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:padding="@dimen/margin_8"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="56dp"
+        app:fabCustomSize="56dp"
+        android:src="@drawable/ic_candle"
+        android:layout_centerHorizontal="true"
+        android:layout_height="56dp" />
+    <androidx.cardview.widget.CardView
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@color/color_white"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/margin_8"
+        app:cardElevation="2dp"
+        android:layout_height="250dp">
+        <LinearLayout
+            android:padding="@dimen/margin_8"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:text=" Enter a Yartzeit "
+                android:textSize="22sp"
+                android:id="@+id/dialogTitle"
+                android:textColor="@color/color_black"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/color_black"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp"
+                android:id="@+id/dialogMsg"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Your entry will appear only on this device."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:elevation="@dimen/margin_2"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginRight="@dimen/margin_16"
+                android:text="OK"
+                android:id="@+id/dialogOk"
+                android:textSize="18sp"
+                android:background="@drawable/button_ok"
+                android:layout_width="match_parent"
+                android:padding="4dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
