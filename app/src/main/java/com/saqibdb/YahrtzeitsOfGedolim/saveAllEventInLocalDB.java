@@ -95,15 +95,11 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
                 //dbHandler.addEvent(getEvent.getEventDetails());
             }
 
-            SharedPreferencesHelper.getInstance().setBoolean("isDataSaved_", true);
-
-            ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
             for (int i = 0; i < list.size(); i++) {
                 EventDetails event = list.get(i);
 
-                executorService.submit(() -> {
-                    HebrewDateModel hebrewDateModel = DateUtil.convertHDateToGDate(todayHebrewDateModel.getHy(), event.getMonth(), event.getDay());
+                HebrewDateModel hebrewDateModel = DateUtil.convertHDateToGDate(todayHebrewDateModel.getHy(), event.getMonth(), event.getDay());
+                if (hebrewDateModel != null) {
                     String[] arrStr = String.valueOf(hebrewDateModel.getHebrew()).split(" ");
                     event.setDay(hebrewDateModel.getGd());
                     event.setMonth(hebrewDateModel.getGm());
@@ -114,17 +110,12 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
                     event.setMonthHebrewStr("" + hebrewDateModel.getHm());
                     event.setYearHebrew("" + hebrewDateModel.getHy());
                     dbHandler.addEvent(event, 0);
-                });
+                } else {
+                    Log.d(TAG, "[DEBUG]: hebrewDateModel for event id: " + event.getId() + " is null");
+                }
             }
 
-            executorService.shutdown();
-
-            try {
-                executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-            } catch (InterruptedException e) {
-                String message = e.getMessage();
-                Log.e(TAG, "[ERROR]: " + message);
-            }
+            SharedPreferencesHelper.getInstance().setBoolean("isDataSaved_", true);
 
             if (onComplete != null)
                 onComplete.onComplete();
