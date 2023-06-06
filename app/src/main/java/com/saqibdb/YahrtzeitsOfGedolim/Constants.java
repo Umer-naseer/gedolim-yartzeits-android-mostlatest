@@ -1,6 +1,8 @@
 package com.saqibdb.YahrtzeitsOfGedolim;
 
 public class Constants {
+    public static final boolean DEBUG = true;
+
     public static int NOTIFICATION_HOURS = 8;
     public static final String SAVE_NOTIFICATION_HOURS = "NOTIFICATION_HOURS";
     public static int NOTIFICATION_MIN = 0;

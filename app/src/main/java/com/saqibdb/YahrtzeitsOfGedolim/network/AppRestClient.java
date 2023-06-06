@@ -14,7 +14,7 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 public class AppRestClient {
 
     //private static final String BASE_URL = "https://yahrtzeits-of-gedolim.herokuapp.com/";
-    private static final String BASE_URL = "http://24.199.91.56/";
+    public static final String BASE_URL = "http://24.199.91.56/";
     public static final String API_GET_ALL_EVENT_LIST_END_POINT = "get_information_on_all_date/";
     public static final String API_GET_EVENT_LIST_BY_DATE_END_POINT = "get_information_on_date/";
 

@@ -11,10 +11,13 @@ import com.saqibdb.YahrtzeitsOfGedolim.helper.SharedPreferencesHelper;
 import com.saqibdb.YahrtzeitsOfGedolim.model.EventDetails;
 import com.saqibdb.YahrtzeitsOfGedolim.model.GetEvent;
 import com.saqibdb.YahrtzeitsOfGedolim.model.HebrewDateModel;
+import com.saqibdb.YahrtzeitsOfGedolim.network.retrofit.ApiManager;
+import com.saqibdb.YahrtzeitsOfGedolim.network.retrofit.request.RequestBodyFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created on 15-08-2018, 05:09:44 PM.
@@ -28,6 +31,8 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
     OnComplete onComplete;
 
     ArrayList<EventDetails> list;
+
+    private static final String TAG = saveAllEventInLocalDB.class.getSimpleName();
 
     public saveAllEventInLocalDB(Activity mActivity, HebrewDateModel todayHebrewDateModel, OnComplete onComplete, ArrayList<EventDetails> list) {
         this.mActivity = mActivity;
@@ -71,6 +76,18 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+
+        if (Constants.DEBUG) {
+            ApiManager apiManager = new ApiManager();
+            RequestBodyFactory factory = new RequestBodyFactory();
+
+            List<EventDetails> eventDetails = apiManager.makeRequest(factory.createRequestBody());
+//            if (!eventDetails.isEmpty()) {
+//                list.addAll(eventDetails); // commented for now
+//            } else {
+//                Log.d(TAG, "[INFO]: List taken from api is empty");
+//            }
+        }
 
         boolean isSaved = SharedPreferencesHelper.getInstance().getBoolean("isDataSaved_", false);
         if (!isSaved) {
