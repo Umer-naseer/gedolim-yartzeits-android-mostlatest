@@ -151,7 +151,7 @@ public class NotificationGenerate extends AsyncTask<Void, Void, Void> {
         notificationIntent.putExtra("date", event.getDateFull());
         notificationIntent.putExtra("id", event.getId());
 
-        PendingIntent broadcast = PendingIntent.getBroadcast(context, event.getId(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent broadcast = PendingIntent.getBroadcast(context, event.getId(), notificationIntent, PendingIntent.FLAG_MUTABLE);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), broadcast);
         if (!SharedPreferencesHelper.getInstance().getBoolean(Constants.TURN_NOTIFICATION_ON_OFF, true)){

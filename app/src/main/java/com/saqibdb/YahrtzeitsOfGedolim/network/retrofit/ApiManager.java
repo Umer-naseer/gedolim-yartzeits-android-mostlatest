@@ -2,6 +2,7 @@ package com.saqibdb.YahrtzeitsOfGedolim.network.retrofit;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.saqibdb.YahrtzeitsOfGedolim.model.EventDetails;
 import com.saqibdb.YahrtzeitsOfGedolim.model.GetEvent;
 import java.util.Collections;
@@ -23,7 +24,7 @@ public class ApiManager {
         eventsService = RetrofitClient.getRetrofit().create(EventsService.class);
     }
 
-    public List<EventDetails> makeRequest(JSONObject body) {
+    public String makeRequest(JSONObject body) {
         try {
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody requestBody = RequestBody.create(mediaType, body.toString());
@@ -31,15 +32,16 @@ public class ApiManager {
             Response<GetEvent> response = call.execute();
             if (response.isSuccessful()) {
                 GetEvent responseBody = response.body();
-                Log.d(TAG, "Size is: " + responseBody.getEventDetails().size());
-                return responseBody.getEventDetails();
+                Gson gson = new Gson();
+                String rawResponse = gson.toJson(responseBody);
+                return rawResponse;
             }
-            return Collections.emptyList();
+            return "";
         } catch (Exception exception) {
             // handle exception
             String message = exception.getMessage();
-            Log.d(TAG, "[ERROR]: " + message);
-            return Collections.emptyList();
+            Log.e(TAG, "[ERROR]: " + message);
+            return "";
         }
     }
 }

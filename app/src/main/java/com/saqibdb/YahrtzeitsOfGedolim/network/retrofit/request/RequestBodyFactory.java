@@ -15,7 +15,7 @@ public class RequestBodyFactory {
             body.put("page", -1);
         } catch (Exception exception) {
             String message = exception.getMessage();
-            Log.d(TAG, "[ERROR]: " + message);
+            Log.e(TAG, "[ERROR]: " + message);
         }
 
         return body;
