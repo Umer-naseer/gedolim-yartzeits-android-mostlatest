@@ -105,47 +105,42 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
 
-        boolean isSaved = SharedPreferencesHelper.getInstance().getBoolean("isDataSaved_", false);
-        if (!isSaved) {
+        FileWriter fileWriter = new FileWriter();
+        FileReader fileReader = new FileReader();
 
-            FileWriter fileWriter = new FileWriter();
-            FileReader fileReader = new FileReader();
+        if (ServerManager.isInternetConnected(mActivity)) {
+            ApiManager apiManager = new ApiManager();
+            RequestBodyFactory factory = new RequestBodyFactory();
 
-            if (ServerManager.isInternetConnected(mActivity)) {
-                ApiManager apiManager = new ApiManager();
-                RequestBodyFactory factory = new RequestBodyFactory();
-
-                String eventDetailsRaw = null;
-                try {
-                    eventDetailsRaw = apiManager.makeRequest(factory.createRequestBody());
-                } catch (Exception e) {
-                    fileWriter.writeContentToFile(mActivity, loadJSONFromAsset());
-                    String message = e.getMessage();
-                    Log.e(TAG, "[INFO]: " + message);
-                }
-                if (checkResponseAvailability(eventDetailsRaw)) {
-                    fileWriter.writeContentToFile(mActivity, eventDetailsRaw);
-                } else {
-                    Log.i(TAG, "[INFO]: List taken from api is empty");
-                }
-            } else {
+            String eventDetailsRaw = null;
+            try {
+                eventDetailsRaw = apiManager.makeRequest(factory.createRequestBody());
+            } catch (Exception e) {
                 fileWriter.writeContentToFile(mActivity, loadJSONFromAsset());
-                Log.i(TAG, "[INFO]: Internet is not connected");
+                String message = e.getMessage();
+                Log.e(TAG, "[INFO]: " + message);
             }
-
-            Gson gson = new Gson();
-            GetEvent getEvent = gson.fromJson(fileReader.readContentFromFile(mActivity), GetEvent.class);
-            if (getEvent != null && getEvent.getEventDetails() != null && getEvent.getEventDetails().size() > 0) {
-                list.addAll(getEvent.getEventDetails());
-
-                //dbHandler.addEvent(getEvent.getEventDetails());
+            if (checkResponseAvailability(eventDetailsRaw)) {
+                fileWriter.writeContentToFile(mActivity, eventDetailsRaw);
+            } else {
+                Log.i(TAG, "[INFO]: List taken from api is empty");
             }
-
-            if (onComplete != null)
-                onComplete.onComplete();
-
-            SharedPreferencesHelper.getInstance().setBoolean("isDataSaved_", true);
+        } else {
+            fileWriter.writeContentToFile(mActivity, loadJSONFromAsset());
+            Log.i(TAG, "[INFO]: Internet is not connected");
         }
+
+        Gson gson = new Gson();
+        GetEvent getEvent = gson.fromJson(fileReader.readContentFromFile(mActivity), GetEvent.class);
+        if (getEvent != null && getEvent.getEventDetails() != null && getEvent.getEventDetails().size() > 0) {
+            list.addAll(getEvent.getEventDetails());
+
+            //dbHandler.addEvent(getEvent.getEventDetails());
+        }
+
+        if (onComplete != null)
+            onComplete.onComplete();
+
         if (todayHebrewDateModel == null)
             return null;
         //doLocalEventNotConversionCompleted();
