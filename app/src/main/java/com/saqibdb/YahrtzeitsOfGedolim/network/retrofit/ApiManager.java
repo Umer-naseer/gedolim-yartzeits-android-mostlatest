@@ -56,9 +56,7 @@ public class ApiManager {
             }
         } catch (Exception exception) {
             // handle exception
-            String message = exception.getMessage();
-            Log.e(TAG, "[ERROR]: " + message);
-            return "";
+            throw exception;
         }
     }
 }
