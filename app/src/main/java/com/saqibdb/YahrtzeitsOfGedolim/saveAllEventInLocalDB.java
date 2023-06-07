@@ -3,18 +3,32 @@ package com.saqibdb.YahrtzeitsOfGedolim;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.saqibdb.YahrtzeitsOfGedolim.helper.DatabaseHandler;
 import com.saqibdb.YahrtzeitsOfGedolim.helper.DateUtil;
+import com.saqibdb.YahrtzeitsOfGedolim.helper.FileReader;
+import com.saqibdb.YahrtzeitsOfGedolim.helper.FileWriter;
 import com.saqibdb.YahrtzeitsOfGedolim.helper.SharedPreferencesHelper;
 import com.saqibdb.YahrtzeitsOfGedolim.model.EventDetails;
 import com.saqibdb.YahrtzeitsOfGedolim.model.GetEvent;
 import com.saqibdb.YahrtzeitsOfGedolim.model.HebrewDateModel;
+import com.saqibdb.YahrtzeitsOfGedolim.network.AppRestClient;
+import com.saqibdb.YahrtzeitsOfGedolim.network.ServerManager;
+import com.saqibdb.YahrtzeitsOfGedolim.network.retrofit.ApiManager;
+import com.saqibdb.YahrtzeitsOfGedolim.network.retrofit.request.RequestBodyFactory;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created on 15-08-2018, 05:09:44 PM.
@@ -29,27 +43,70 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
 
     ArrayList<EventDetails> list;
 
+    private static final String TAG = saveAllEventInLocalDB.class.getSimpleName();
+
     public saveAllEventInLocalDB(Activity mActivity, HebrewDateModel todayHebrewDateModel, OnComplete onComplete, ArrayList<EventDetails> list) {
         this.mActivity = mActivity;
         this.todayHebrewDateModel = todayHebrewDateModel;
         this.onComplete = onComplete;
         this.list = list;
+        dbHandler = new DatabaseHandler(mActivity);
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+
+        new NotificationGenerate(mActivity, NotificationGenerate.ALL).execute();
+
         if (onComplete != null)
             onComplete.onComplete();
+    }
 
-        for (int i = 0; i < list.size(); i++) {
+    @Override
+    protected Void doInBackground(Void... voids) {
 
-            EventDetails event = list.get(i);
-            new ConvertAndSave(event).execute();
-/*
-                    HebrewDateModel hebrewDateModel = DateUtil.convertHDateToGDate(todayHebrewDateModel.getHy(), event.getMonth(), event.getDay());
-                    if (hebrewDateModel == null)
-                        continue;
+        boolean isSaved = SharedPreferencesHelper.getInstance().getBoolean("isDataSaved_", false);
+        if (!isSaved) {
+
+            FileWriter fileWriter = new FileWriter();
+            FileReader fileReader = new FileReader();
+
+            if (ServerManager.isInternetConnected(mActivity)) {
+                ApiManager apiManager = new ApiManager();
+                RequestBodyFactory factory = new RequestBodyFactory();
+
+                String eventDetailsRaw = null;
+                try {
+                    eventDetailsRaw = apiManager.makeRequest(factory.createRequestBody());
+                } catch (Exception e) {
+                    fileWriter.writeContentToFile(mActivity, loadJSONFromAsset());
+                    String message = e.getMessage();
+                    Log.e(TAG, "[INFO]: " + message);
+                }
+                if (checkResponseAvailability(eventDetailsRaw)) {
+                    fileWriter.writeContentToFile(mActivity, eventDetailsRaw);
+                } else {
+                    Log.i(TAG, "[INFO]: List taken from api is empty");
+                }
+            } else {
+                fileWriter.writeContentToFile(mActivity, loadJSONFromAsset());
+                Log.i(TAG, "[INFO]: Internet is not connected");
+            }
+
+            Gson gson = new Gson();
+            GetEvent getEvent = gson.fromJson(fileReader.readContentFromFile(mActivity), GetEvent.class);
+            if (getEvent != null && getEvent.getEventDetails() != null && getEvent.getEventDetails().size() > 0) {
+                list.addAll(getEvent.getEventDetails());
+
+                //dbHandler.addEvent(getEvent.getEventDetails());
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                EventDetails event = list.get(i);
+
+                HebrewDateModel hebrewDateModel = DateUtil.convertHDateToGDate(todayHebrewDateModel.getHy(), event.getMonth(), event.getDay());
+                if (hebrewDateModel != null) {
                     String[] arrStr = String.valueOf(hebrewDateModel.getHebrew()).split(" ");
                     event.setDay(hebrewDateModel.getGd());
                     event.setMonth(hebrewDateModel.getGm());
@@ -60,37 +117,24 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
                     event.setMonthHebrewStr("" + hebrewDateModel.getHm());
                     event.setYearHebrew("" + hebrewDateModel.getHy());
                     dbHandler.addEvent(event, 0);
-*/
-        }
-
-        if (list.size() > 0){
-            new NotificationGenerate(mActivity, NotificationGenerate.ALL).execute();
-        }
-
-    }
-
-    @Override
-    protected Void doInBackground(Void... voids) {
-
-        boolean isSaved = SharedPreferencesHelper.getInstance().getBoolean("isDataSaved_", false);
-        if (!isSaved) {
-            Gson gson = new Gson();
-            GetEvent getEvent = gson.fromJson(loadJSONFromAsset(), GetEvent.class);
-            if (getEvent != null && getEvent.getEventDetails() != null && getEvent.getEventDetails().size() > 0) {
-                if (dbHandler == null)
-                    dbHandler = new DatabaseHandler(mActivity);
-                list.addAll(getEvent.getEventDetails());
-
-                //dbHandler.addEvent(getEvent.getEventDetails());
+                } else {
+                    Log.d(TAG, "[DEBUG]: hebrewDateModel for event id: " + event.getId() + " is null");
+                }
             }
+
+            SharedPreferencesHelper.getInstance().setBoolean("isDataSaved_", true);
+
             if (onComplete != null)
                 onComplete.onComplete();
-            SharedPreferencesHelper.getInstance().setBoolean("isDataSaved_", true);
         }
         if (todayHebrewDateModel == null)
             return null;
         //doLocalEventNotConversionCompleted();
         return null;
+    }
+
+    private boolean checkResponseAvailability(String eventDetailsRaw) {
+        return eventDetailsRaw != null && !eventDetailsRaw.isEmpty();
     }
 
     int lastPos = 0;
@@ -107,39 +151,6 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
                 EventDetails event = eventList.get(i);
                 new GetSelectedHebrewDateToEnglish(i, event).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
             }
-        }
-    }
-
-    private class ConvertAndSave extends AsyncTask<Void, Void, Void> {
-
-        private EventDetails event;
-        private int position;
-
-        public ConvertAndSave(EventDetails event) {
-            this.event = event;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            HebrewDateModel hebrewDateModel = DateUtil.convertHDateToGDate(todayHebrewDateModel.getHy(), event.getMonth(), event.getDay());
-            if (hebrewDateModel == null)
-                return null;
-            String[] arrStr = String.valueOf(hebrewDateModel.getHebrew()).split(" ");
-            event.setDay(hebrewDateModel.getGd());
-            event.setMonth(hebrewDateModel.getGm());
-            event.setYear(hebrewDateModel.getGy());
-            event.setDayHebrewStr("" + arrStr[0].trim());
-            event.setDayHebrew("" + hebrewDateModel.getHd());
-            event.setMonthHebrew("" + hebrewDateModel.getHm_());
-            event.setMonthHebrewStr("" + hebrewDateModel.getHm());
-            event.setYearHebrew("" + hebrewDateModel.getHy());
-            dbHandler.addEvent(event, 0);
-            return null;
         }
     }
 

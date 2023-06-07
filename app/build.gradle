@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.saqibdb.YahrtzeitsOfGedolim"
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 33
         multiDexEnabled true
         versionCode 28
         versionName "2.8"
@@ -27,6 +27,13 @@ android {
 }
 
 dependencies {
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // okhttp
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
