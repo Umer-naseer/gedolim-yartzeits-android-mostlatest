@@ -76,7 +76,14 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
                 ApiManager apiManager = new ApiManager();
                 RequestBodyFactory factory = new RequestBodyFactory();
 
-                String eventDetailsRaw = apiManager.makeRequest(factory.createRequestBody());
+                String eventDetailsRaw = null;
+                try {
+                    eventDetailsRaw = apiManager.makeRequest(factory.createRequestBody());
+                } catch (Exception e) {
+                    fileWriter.writeContentToFile(mActivity, loadJSONFromAsset());
+                    String message = e.getMessage();
+                    Log.e(TAG, "[INFO]: " + message);
+                }
                 if (!eventDetailsRaw.isEmpty()) {
                     fileWriter.writeContentToFile(mActivity, eventDetailsRaw);
                 } else {
