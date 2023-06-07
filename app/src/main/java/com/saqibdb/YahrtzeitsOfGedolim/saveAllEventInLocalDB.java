@@ -84,7 +84,7 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
                     String message = e.getMessage();
                     Log.e(TAG, "[INFO]: " + message);
                 }
-                if (!eventDetailsRaw.isEmpty()) {
+                if (checkResponseAvailability(eventDetailsRaw)) {
                     fileWriter.writeContentToFile(mActivity, eventDetailsRaw);
                 } else {
                     Log.i(TAG, "[INFO]: List taken from api is empty");
@@ -131,6 +131,10 @@ public class saveAllEventInLocalDB extends AsyncTask<Void, String, Void> {
             return null;
         //doLocalEventNotConversionCompleted();
         return null;
+    }
+
+    private boolean checkResponseAvailability(String eventDetailsRaw) {
+        return eventDetailsRaw != null && !eventDetailsRaw.isEmpty();
     }
 
     int lastPos = 0;
